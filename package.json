@@ -1,0 +1,19 @@
+{
+  "name": "new-tab-todo",
+  "version": "0.0.0",
+  "description": "Chrome todo plugin",
+  "scripts": {
+    "build": "gulp build"
+  },
+  "author": "Nikita Mostovoy (http://xnim.ru)",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "del": "^1.2.0",
+    "gulp": "~3.8.11",
+    "gulp-browserify": "^0.5.1",
+    "gulp-react": "~3.0.0",
+    "gulp-rename": "^1.2.2",
+    "react-tools": "~0.12.2",
+    "run-sequence": "^1.1.2"
+  }
+}
