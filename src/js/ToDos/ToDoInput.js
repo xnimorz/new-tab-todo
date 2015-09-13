@@ -10,7 +10,9 @@
         },
 
         handleAddButton: function() {
-            this.addTodo();
+            if (!this.addTodo()) {
+                React.findDOMNode(this.refs.todoInput).focus();
+            }
         },
 
         handleKeyDown: function(event) {
@@ -28,6 +30,7 @@
             if (val) {
                 this.props.manager.addTodo(val);
                 React.findDOMNode(this.refs.todoInput).value = '';
+                return true;
             }
         },
 

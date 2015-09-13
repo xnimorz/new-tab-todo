@@ -10,9 +10,14 @@
     var ToDoesList = React.createClass({
 
         getInitialState: function() {
+            var state = localStorage.getItem('state');
+            var isArchive = localStorage.getItem('isArchive') === 'true';
+            if ([states.ALL, states.INCOMPLETE, states.COMPLETE].indexOf(state) === -1) {
+                state = states.ALL;
+            }
             return {
-                type: states.ALL,
-                isArchive: false
+                type: state,
+                isArchive: isArchive
             };
         },
 
@@ -34,6 +39,8 @@
                 type: states.ALL,
                 isArchive: false
             });
+            localStorage.setItem('state', states.ALL);
+            localStorage.setItem('isArchive', 'false');
         },
 
         handleActive: function() {
@@ -41,6 +48,8 @@
                 type: states.INCOMPLETE,
                 isArchive: false
             });
+            localStorage.setItem('state', states.INCOMPLETE);
+            localStorage.setItem('isArchive', 'false');
         },
 
         handleComplete: function() {
@@ -48,12 +57,15 @@
                 type: states.COMPLETE,
                 isArchive: false
             });
+            localStorage.setItem('state', states.COMPLETE);
+            localStorage.setItem('isArchive', 'false');
         },
 
         handleArchive: function() {
             this.setState({
                 isArchive: true
             });
+            localStorage.setItem('isArchive', 'true');
         },
 
         render: function() {
@@ -79,29 +91,31 @@
                     { main }
                     <div className="control-group">
                         <Counter manager={this.props.manager}/>
-                        <span className="controll-group__item">
-                            <button className={'link-button ' + (this.state.type === states.ALL && !this.state.isArchive ? 'link-button_active' : '')}
-                                    onClick={this.handleAll}>
-                                All
-                            </button>
-                        </span>
-                        <span className="controll-group__item">
-                            <button className={'link-button ' + (this.state.type === states.INCOMPLETE && !this.state.isArchive ? 'link-button_active' : '')}
-                                    onClick={this.handleActive}>
-                                Active
-                            </button>
-                        </span>
-                        <span className="controll-group__item">
-                            <button className={'link-button ' + (this.state.type === states.COMPLETE && !this.state.isArchive ? 'link-button_active' : '')}
-                                    onClick={this.handleComplete}>
-                                Complete
-                            </button>
-                        </span>
-                        <span className="controll-group__item">
-                            <button className={'link-button ' + (this.state.isArchive ? 'link-button_active' : '')}
-                                    onClick={this.handleArchive}>
-                                Archive
-                            </button>
+                        <span className="control-group__buttons">
+                            <span className="control-group__item">
+                                <button className={'link-button ' + (this.state.type === states.ALL && !this.state.isArchive ? 'link-button_active' : '')}
+                                        onClick={this.handleAll}>
+                                    All
+                                </button>
+                            </span>
+                            <span className="control-group__item">
+                                <button className={'link-button ' + (this.state.type === states.INCOMPLETE && !this.state.isArchive ? 'link-button_active' : '')}
+                                        onClick={this.handleActive}>
+                                    Active
+                                </button>
+                            </span>
+                            <span className="control-group__item">
+                                <button className={'link-button ' + (this.state.type === states.COMPLETE && !this.state.isArchive ? 'link-button_active' : '')}
+                                        onClick={this.handleComplete}>
+                                    Complete
+                                </button>
+                            </span>
+                            <span className="control-group__item">
+                                <button className={'link-button ' + (this.state.isArchive ? 'link-button_active' : '')}
+                                        onClick={this.handleArchive}>
+                                    Archive
+                                </button>
+                            </span>
                         </span>
                     </div>
                 </div>

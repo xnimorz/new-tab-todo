@@ -63,6 +63,8 @@ input {
 
     .todo-item__text {
         display: inline-block;
+        max-width: calc(100% - 55px);
+        word-wrap: break-word;
     }
 
     .todo-item__label {
@@ -80,9 +82,10 @@ input {
     border: none;
     padding: 0;
     position: relative;
-    top: 7px;
+    top: 2px;
     cursor: pointer;
     margin-right: 10px;
+    vertical-align: top;
 }
 
     .checkbox:checked {
@@ -133,11 +136,17 @@ input {
     margin-top: 10px;
     padding-left: 5px;
     font-size: 18px;
+    margin-bottom: 50px;
 }
 
-    .controll-group__item {
+    .control-group__buttons {
+        float: right;
+    }
+
+    .control-group__item {
         margin-left: 15px;
     }
+
 
 .link-button {
     -webkit-appearance: none;
