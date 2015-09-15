@@ -37,10 +37,6 @@ input {
     line-height: 30px;
     border-bottom: 2px solid #E7E0E0;
     position: relative;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
     .todo-item:last-child {
         border-bottom: none;

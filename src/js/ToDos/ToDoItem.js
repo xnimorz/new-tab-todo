@@ -30,6 +30,53 @@
         },
 
         render: function () {
+            function urlify(text) {
+                var urls = [];
+                text.replace(/(https?:\/\/[^\s]+)/g, function(url) {
+                    urls.push({
+                        text: url,
+                        type: 'url'
+                    });
+                });
+                var parts = [{
+                    text: text,
+                    type: 'text'
+                }];
+                if (urls.length > 0) {
+                    urls.forEach(function(item) {
+                        var index = parts.length - 1;
+                        if (parts[index].type === 'text') {
+                            var text = parts[index].text;
+                            var urlOffset = text.indexOf(item.text);
+                            var cashedText = parts[index].text;
+                            parts[index].text = cashedText.slice(0, urlOffset);
+                            parts.push(item);
+                            parts.push({
+                                text: cashedText.slice(urlOffset + item.text.length),
+                                type: 'text'
+                            });
+                        }
+                    });
+                }
+
+                return (
+                    <span className="todo-item__text">
+                        { parts.map(function(item) {
+                            if (item.type === 'text') {
+                                return (
+                                    <span>{ item.text }</span>
+                                );
+                            }
+                            return (
+                                <a target="_blank" href={item.text}>{item.text}</a>
+                            );
+                        })}
+                    </span>
+                )
+            }
+
+            var data = urlify(this.props.task.text);
+
             return (
                 <div className="todo-item">
                     <label className="todo-item__label">
@@ -37,9 +84,7 @@
                                className="checkbox todo-item__input"
                                onChange={ this.handleCheck }
                                checked={ this.props.task.status ===  states.COMPLETE ? 'checked' : '' }/>
-                               <span className="todo-item__text">
-                                   { this.props.task.text }
-                               </span>
+                               { data }
                     </label>
                     <span className="todo-item__remove"
                           onClick={ this.handleRemove }>
