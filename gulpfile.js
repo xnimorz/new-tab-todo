@@ -1,22 +1,21 @@
 var gulp = require('gulp');
 var react = require('gulp-react');
-var browserify = require('gulp-browserify');
 var rename = require('gulp-rename');
 var del = require('del');
 var runSequence = require('run-sequence');
 var watching = false;
+var webpackConfig = require('./webpack.config');
+var webpack = require('webpack');
+var gutil = require('gulp-util');
 
 var path = {
-    JS: ['src/js/*.js', 'src/js/**/*.js'],
     CSS: ['src/css/*.css', 'src/css/**/*.css'],
     IMG: ['src/img/*.svg'],
     HTML: 'src/todo.html',
     JSON: 'src/manifest.json',
     DEST: 'build',
-    DEST_JS: 'build/js',
     DEST_IMG: 'build/img',
-    DEST_STYLES: 'build/css',
-    BROWSERIFY_JS: 'build/js/main.js'
+    DEST_STYLES: 'build/css'
 };
 
 gulp.task('clean', function(callback) {
@@ -25,32 +24,12 @@ gulp.task('clean', function(callback) {
     });
 });
 
-gulp.task('browserify', ['js'], function(callback) {
-    return gulp.src(path.BROWSERIFY_JS)
-        .pipe(browserify({
-            insertGlobals : true
-        }))
-        .on('error', function(err) {
-            console.log(err);
-            if (!watching) {
-                callback(err);
-            }
-        })
-        .pipe(rename('app.js'))
-        .pipe(gulp.dest(path.DEST_JS))
-
-});
-
 gulp.task('js', function(callback) {
-    return gulp.src(path.JS)
-        .pipe(react())
-        .on('error', function(err) {
-            console.log(err);
-            if (!watching) {
-                callback(err);
-            }
-        })
-        .pipe(gulp.dest(path.DEST_JS))
+    webpack(webpackConfig, function(err, stats) {
+        if(err) throw new gutil.PluginError("webpack", err);
+        gutil.log("[webpack]", stats.toString());
+        callback();
+    });
 });
 
 gulp.task('css', function() {
@@ -73,13 +52,8 @@ gulp.task('img', function() {
         .pipe(gulp.dest(path.DEST_IMG));
 });
 
-gulp.task('assemble', ['js', 'browserify', 'img', 'css', 'html', 'manifest']);
+gulp.task('assemble', ['js', 'img', 'css', 'html', 'manifest']);
 
 gulp.task('build', function(callback) {
     runSequence('clean', 'assemble', callback);
-});
-
-gulp.task('watch', function(){
-    watching = true;
-    gulp.watch(path.JS.concat(path.CSS, path.IMG, path.HTML), ['assemble']);
 });
