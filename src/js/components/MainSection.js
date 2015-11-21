@@ -26,11 +26,12 @@ class MainSection extends Component {
                         <User user={user} changeNameUser={actions.changeNameUser} />
                         <ToDoInput addTodo={actions.addTodo} />
                         <div className="tasks-list">
-                            {todo.map(item =>
+                            {view.todos
+                                .map(item =>
                                 <ToDo key={item.key} todo={item} {...actions} />
                             )}
                         </div>
-                        <Footer view={view}
+                        <Footer view={view.view}
                                 count={count}
                                 changeView={actions.changeView} />
                     </div>

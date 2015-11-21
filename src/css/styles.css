@@ -135,10 +135,6 @@ input {
     margin-bottom: 50px;
 }
 
-    .control-group__buttons {
-        float: right;
-    }
-
     .control-group__item {
         margin-left: 15px;
     }
@@ -168,4 +164,8 @@ input {
 
 .g-hidden {
     display: none;
+}
+
+.view-block {
+    float: right;
 }

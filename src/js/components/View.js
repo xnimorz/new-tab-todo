@@ -14,7 +14,7 @@ class View extends Component {
     }
 
     changeView(e) {
-        var view = e.currentTarget.getAttributes('data-view');
+        var view = e.currentTarget.getAttribute('data-view');
         this.props.changeView(view);
     }
 
@@ -23,12 +23,13 @@ class View extends Component {
 
         return (
             <div className='view-block'>
-                {items.map((item) => {
+                {items.map((item, index) => {
                     return (
-                        <span className='control-group__item'>
+                        <span key={index} className='control-group__item'>
                             <button data-view={item.state}
-                                    onClick={this.changeView}
-                                    className={'link-button' + (item.name == view ? 'link-button_active' : '')} >
+                                    onClick={this.changeView.bind(this)}
+                                    className={'link-button ' + (item.state == view ? 'link-button_active' : '')} >
+                                { item.name }
                             </button>
                         </span>
                     );

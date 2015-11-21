@@ -24,7 +24,8 @@ function mapStateToProps(state) {
     return {
         todo: state.todo,
         timer: state.timer,
-        user: state.user
+        user: state.user,
+        view: state.view
     };
 }
 

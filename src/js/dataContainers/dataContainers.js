@@ -1,5 +1,5 @@
 import loadFromLocalStorage from '../helpers/todoLocalStorage'
-import { INCOMPLETE, COMPLETE } from '../constants/States'
+import { INCOMPLETE, COMPLETE, ALL } from '../constants/States'
 
 class ToDos {
     constructor() {
@@ -11,7 +11,7 @@ class ToDos {
     }
 
     serialize() {
-        localStorage.set('todo', this.toJSON());
+        localStorage.setItem('todo', this.toJSON());
     }
 
     add(todo) {
@@ -89,6 +89,15 @@ class ToDos {
         });
         this.serialize();
     }
+
+    getByState(state) {
+        return this.items.filter((item) => (state === ALL || item.status === state) && !item.isArchive);
+    }
+
+    getArchive() {
+        return this.items.filter((item) => item.isArchive);
+    }
+
 
     toJSON() {
         return JSON.stringify(this.items);

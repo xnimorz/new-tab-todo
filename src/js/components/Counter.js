@@ -11,7 +11,7 @@ class Counter extends Component {
         return (
             <span className="counter">
                 { count }
-                { count === 1 ? 'task' : 'tasks'}
+                { count === 1 ? ' task ' : ' tasks '}
                 left
             </span>
         )

@@ -33,22 +33,17 @@ class ToDoInput extends Component {
 
     handleInput(e) {
         if (e.which === ENTER_KEY) {
-            var newName = e.target.value;
-            this.setState({
-                type: 'text'
-            });
-            const { changeNameUser } = this.props;
-            changeNameUser(newName);
+            this.addTodo();
         }
     }
 
     render() {
         return (
-            <div className='task-input'>
-                <button className='task-input__add' onClick={this.handleClick}></button>
+            <div className='tasks-input'>
+                <button className='tasks-input__add' onClick={this.handleClick.bind(this)}></button>
                 <input className='tasks-input__input'
                        ref={(c) => this._input = c}
-                       onKeyDown={this.handleInput}
+                       onKeyDown={this.handleInput.bind(this)}
                        placeholder="I want to..."
                        autoFocus={ true } />
             </div>

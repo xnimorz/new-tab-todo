@@ -3,12 +3,14 @@ import React, { Component } from 'react'
 class Timer extends Component {
     constructor(props, context) {
         super(props, context);
+        this.state = {
+            timer: props.timer
+        };
         setInterval(this.tick.bind(this), 1000);
     }
 
     tick() {
-        const { tickTimer } = this.props;
-        tickTimer(new Date());
+        this.setState({timer: new Date()});
     }
 
     formatNumber(time) {
@@ -16,7 +18,7 @@ class Timer extends Component {
     }
 
     render() {
-        const { timer } = this.props;
+        const { timer } = this.state;
         return (
             <div className="time">
                 {this.formatNumber(timer.getHours())}:{this.formatNumber(timer.getMinutes())}

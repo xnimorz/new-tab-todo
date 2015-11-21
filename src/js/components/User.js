@@ -38,23 +38,28 @@ class User extends Component {
 
     renderText(name) {
         return (
-            <input onKeyUp={this.acceptChanges} onBlur={this.handleBlur} value={name} autofocus={ true }/>
+            <input onKeyDown={this.acceptChanges.bind(this)}
+                   onBlur={this.handleBlur.bind(this)}
+                   defaultValue={name}
+                   ref={(c) => setTimeout(() => {c && c.focus();}, 0)}
+                   autofocus={ true }/>
         )
     }
 
     renderLink(name) {
         return (
-            <span className='link' onClick={this.handleLinkClick}>{name}</span>
+            <span className='link'
+                  onClick={this.handleLinkClick.bind(this)}>{name}</span>
         )
     }
 
     render() {
-        const { name } = this.props;
+        const { user } = this.props;
         var inputPart;
         if (this.state.type === 'text') {
-            inputPart = this.renderText(name === 'user' ? '' : name);
+            inputPart = this.renderLink(user || 'user');
         } else {
-            inputPart = this.renderLink(name);
+            inputPart = this.renderText(user === 'user' ? '' : user);
         }
 
         return (

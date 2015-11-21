@@ -51,14 +51,14 @@ class ToDo extends Component {
 
         return (
             <span className="todo-item__text">
-                { parts.map(function(item) {
+                { parts.map(function(item, index) {
                     if (item.type === 'text') {
                         return (
-                            <span>{ item.text }</span>
+                            <span key={index}>{ item.text }</span>
                         );
                     }
                     return (
-                        <a target="_blank" href={item.text}>{item.text}</a>
+                        <a key={index} target="_blank" href={item.text}>{item.text}</a>
                     );
                 })}
             </span>
@@ -68,19 +68,19 @@ class ToDo extends Component {
     render() {
         const { todo } = this.props;
 
-        var data = urlify(todo.name);
+        var data = this.urlify(todo.name);
 
         return (
             <div className="todo-item">
                 <label className="todo-item__label">
                     <input type="checkbox"
                            className="checkbox todo-item__input"
-                           onChange={ this.handleCheck }
+                           onChange={ this.handleCheck.bind(this) }
                            checked={ todo.status ===  states.COMPLETE ? 'checked' : '' }/>
                     { data }
                 </label>
                 <span className="todo-item__remove"
-                      onClick={ this.handleRemove }>
+                      onClick={ this.handleRemove.bind(this) }>
                 </span>
             </div>
         );
