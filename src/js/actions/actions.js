@@ -51,13 +51,6 @@ export function changeNameUser(name) {
     }
 }
 
-export function tickTimer(time) {
-    return {
-        type: types.TICK_TIMER,
-        time
-    }
-}
-
 export function changeView(view) {
     return {
         type: types.CHANGE_VIEW,

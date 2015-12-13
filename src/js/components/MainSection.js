@@ -12,7 +12,7 @@ class MainSection extends Component {
     }
 
     render() {
-        const { todo, user, timer, actions, view } = this.props;
+        const { todo, user, actions, view } = this.props;
         var count = todo.reduce((count, item) =>
             (item.status === INCOMPLETE && item.isArchive === false ? ++count : count), 0);
 
@@ -20,7 +20,7 @@ class MainSection extends Component {
             <div className="page__content">
                 <div className="content-box">
                     <div className="content-box__timer">
-                        <Timer timer={timer} tickTimer={actions.tickTimer} />
+                        <Timer tickTimer={actions.tickTimer} />
                     </div>
                     <div className="content-box__list">
                         <User user={user} changeNameUser={actions.changeNameUser} />

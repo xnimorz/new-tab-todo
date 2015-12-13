@@ -4,7 +4,7 @@ class Timer extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            timer: props.timer
+            timer: new Date()
         };
         setInterval(this.tick.bind(this), 1000);
     }
