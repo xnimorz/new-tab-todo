@@ -1,10 +1,10 @@
 {
-    "manifest_version": 2,
-    "name": "new-tab-todo",
-    "version": "2.0",
-    "description": "New tab page plugin, who can track your todo tasks",
-    "author": "Nikita Mostovoy http://xnim.ru",
-    "chrome_url_overrides": {
-        "newtab": "todo.html"
-    }
+  "manifest_version": 2,
+  "name": "new-tab-todo",
+  "version": "3.0",
+  "description": "New tab page plugin, which can track your todo tasks",
+  "author": "Nikita Mostovoy nik.mostovoy@gmail.com",
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  }
 }
