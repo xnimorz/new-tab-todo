@@ -1,0 +1,15 @@
+.page {
+  margin: 0;
+  width: 100%;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  margin-top: 50px;
+}
+
+input {
+  border: none;
+  outline: none;
+  padding: 0 7px;
+  font-size: inherit;
+  color: inherit;
+  -webkit-appearance: none;
+}
